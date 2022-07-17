@@ -1,2 +1,2 @@
-if(left>=right)
-    // return 0;
+for (i = left; i <= right; i++)
+    //     a[i] = c[i - left];

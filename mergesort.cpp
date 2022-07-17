@@ -1,37 +1,60 @@
 #include <iostream>
 using namespace std;
+void mergesort(int a[], int left, int right);
 int main()
 {
-    int arr1[] = {222, 333}, n1 = 2;
-    int arr2[] = {11, 22, 24}, n2 = 3;
-    int arr3[n1 + n2] = {0};
-    int i = 0, j = 0, k = 0;
+    int a[] = {10, 11, 13, 12, 23, 13};
+    int n = sizeof(a) / sizeof(int);
+    int i;
+    mergesort(a, 0, n - 1);
+    for (i = 0; i <= n - 1; i++)
+        cout << a[i] << ",";
+        return 0;
+}
 
-    while (i <= n1 && j <= n2)
+void mergesort(int a[], int left, int right)
+{
+    int i, j, k, mid, c[100] = {0};
+    if (left >= right)
+        return;
+    mid = (left + right) / 2;
+    mergesort(a, left, mid);
+    mergesort(a, mid + 1, right);
+    i = left;
+    j = mid + 1;
+    k = 0;
+    while (i <= mid && j <= right)
     {
-        if (arr1[i] <= arr2[j])
+        if (a[i] >= a[j])   
         {
-            arr3[k] = arr1[i];
-            i++;
+            c[k] = a[j];
+            j++;
+            k++;
         }
-        else if(j==n2)
-            {
-                arr3[k]=arr1[i];
-                i++;
-            }
-        else if(i==n1)
-            {
-                arr3[k]=arr2[j];
-                j++;
-            }
-
         else
         {
-            arr3[k] = arr2[j];
-            j++;
+            c[k] = a[i];
+            i++;
+            k++;
         }
-        k++;
     }
-    for (i = 0; i <= n1 + n2 - 1; i++)
-        cout << arr3[i] << ",";
+   if(i <= mid)
+    {
+        for(;i<=mid;i++)
+            c[k] = a[i];
+            
+            k++;
+            
+    }
+    else
+
+    {
+        for(;j<=right;j++)
+        
+            c[k] = a[j];
+           
+            k++;
+    }
+    for (i = left; i <= right; i++)
+        a[i] = c[i - left];
 }
